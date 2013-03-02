@@ -16,5 +16,3 @@ services:
   UserAddFormFactory: Flame\CMS\UserBundle\Forms\UserAddFormFactory
   UserPasswordFormFactory: Flame\CMS\UserBundle\Forms\UserPasswordFormFactory
 
-  UserInfoFacade: Flame\CMS\UserBundle\ModelInfo\UserInfoFacade
-
