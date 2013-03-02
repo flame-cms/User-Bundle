@@ -13,7 +13,42 @@ namespace Flame\CMS\UserBundle\Forms;
 class UserEditForm extends \Flame\CMS\UserBundle\Application\UI\Form
 {
 
-	public function configure(array $defaults)
+	/** @var \Flame\CMS\UserBundle\Model\UserManager */
+	private $userManager;
+
+	/**
+	 * @param \Flame\CMS\UserBundle\Model\UserManager $userManager
+	 */
+	public function injectUserManager(\Flame\CMS\UserBundle\Model\UserManager $userManager)
+	{
+		$this->userManager = $userManager;
+	}
+
+	/**
+	 * @param array $default
+	 */
+	public function __construct(array $default = array())
+	{
+		parent::__construct();
+		$this->configure();
+		$this->setDefaults($default);
+		$this->onSuccess[] = $this->formSubmitted;
+	}
+
+	/**
+	 * @param UserEditForm $form
+	 */
+	public function formSubmitted(UserEditForm $form)
+	{
+		try {
+			$this->userManager->edit($form->getValues());
+			$form->presenter->flashMessage('User was edited.', 'success');
+		}catch (\Nette\InvalidArgumentException $ex){
+			$form->addError($ex->getMessage());
+		}
+	}
+
+	private function configure()
 	{
 		$this->addText('name', 'Name:', 60)
 			->addRule(self::MAX_LENGTH, null, 150);
@@ -39,9 +74,8 @@ class UserEditForm extends \Flame\CMS\UserBundle\Application\UI\Form
 			->addRule(self::EMAIL)
 			->controlPrototype->readonly = 'readonly';
 
-		$this->setDefaults($defaults);
-
-		$this->addSubmit('send', 'Edit');
+		$this->addSubmit('send', 'Edit')
+			->setAttribute('class', 'btn-primary');
 	}
 
 }

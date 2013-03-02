@@ -22,13 +22,14 @@
 				</thead>
 
 				<tbody>
-					<tr n:foreach="$users as $user">
-						<td>{$user->role}</td>
-						<td>{$user->email}</td>
+					<tr n:foreach="$users as $_user">
+						<td>{$_user->role}</td>
+						<td>{$_user->email}</td>
 						<td>
                             <div class="btn-group">
                                 <a rel="tooltip" class="btn btn-small" n:href="edit $user->id"><i class="icon-edit"></i> Edit</a>
-                                <a rel="tooltip" class="btn btn-small btn-danger ajax" n:href="delete! $user->id"><i class="icon-trash icon-white"></i> Delete</a>
+
+								{if $_user->id !== $user->id}<a rel="tooltip" class="btn btn-small btn-danger" n:href="delete! $_user->id"><i class="icon-trash icon-white"></i> Delete</a>{/if}
                             </div>
 						</td>
 					</tr>

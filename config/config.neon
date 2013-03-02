@@ -13,11 +13,20 @@ services:
 
   user: \Flame\CMS\UserBundle\Security\User
 
-  UserFacade: Flame\CMS\UserBundle\Model\UserFacade
-#  UserEditFormFactory: Flame\CMS\UserBundle\Forms\UserEditFormFactory
-#  UserAddFormFactory: Flame\CMS\UserBundle\Forms\UserAddFormFactory
-#  UserPasswordFormFactory: Flame\CMS\UserBundle\Forms\UserPasswordFormFactory
+  - \Flame\CMS\UserBundle\Model\UserFacade
+  - \Flame\CMS\UserBundle\Model\UserManager
 
 factories:
-  implement: \Flame\CMS\UserBundle\Forms\Sign\IInFormFactory
+  inForm:
+    implement: \Flame\CMS\UserBundle\Forms\Sign\IInFormFactory
 
+  userAddForm:
+    implement: \Flame\CMS\UserBundle\Forms\IUserAddFormFactory
+
+  editUserForm:
+    create: \Flame\CMS\UserBundle\Forms\UserEditForm(%default%)
+    implement: \Flame\CMS\UserBundle\Forms\IUserEditFormFactory
+    parameters: [array default = []]
+
+  userPasswordForm:
+    implement: \Flame\CMS\UserBundle\Forms\IUserPasswordFormFactory

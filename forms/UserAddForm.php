@@ -13,7 +13,38 @@ namespace Flame\CMS\UserBundle\Forms;
 class UserAddForm extends \Flame\CMS\UserBundle\Application\UI\Form
 {
 
-	public function configure()
+	/** @var \Flame\CMS\UserBundle\Model\UserManager */
+	private $userManager;
+
+	/**
+	 * @param \Flame\CMS\UserBundle\Model\UserManager $userManager
+	 */
+	public function injectUserManager(\Flame\CMS\UserBundle\Model\UserManager $userManager)
+	{
+		$this->userManager = $userManager;
+	}
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->configure();
+		$this->onSuccess[] = $this->formSubmitted;
+	}
+
+	/**
+	 * @param UserAddForm $form
+	 */
+	public function formSubmitted(UserAddForm $form)
+	{
+		try {
+			$this->userManager->create($form->getValues());
+			$form->presenter->flashMessage('User was created', 'success');
+		}catch (\Nette\InvalidArgumentException $ex){
+			$form->addError($ex->getMessage());
+		}
+	}
+
+	private function configure()
 	{
 
 		$this->addSelect('role', 'Role:')
@@ -31,7 +62,8 @@ class UserAddForm extends \Flame\CMS\UserBundle\Application\UI\Form
 		$this->addPassword('passwordTwo', 'Password (check):', 60)
 			->addRule(self::EQUAL, 'Entered passwords is not equal. Try it again.', $this['password']);
 
-		$this->addSubmit('send', 'Add');
+		$this->addSubmit('send', 'Add')
+			->setAttribute('class', 'btn-primary');
 	}
 
 }

@@ -12,57 +12,40 @@ class UserPresenter extends AdminPresenter
      */
     private $user;
 
-    /**
-     * @var \Flame\CMS\UserBundle\Model\UserFacade
-     */
-    private $userFacade;
+	/**
+	 * @autowire
+	 * @var \Flame\CMS\UserBundle\Model\UserFacade
+	 */
+	protected $userFacade;
+
+	/** @var \Flame\CMS\UserBundle\Model\UserManager */
+	private $userManager;
 
 	/**
-	 * @var \Flame\CMS\UserBundle\Forms\UserEditFormFactory $userEditFormFactory
+	 * @param \Flame\CMS\UserBundle\Model\UserManager $userManager
 	 */
-	private $userEditFormFactory;
-
-	/**
-	 * @var \Flame\CMS\UserBundle\Forms\UserAddFormFactory $userAddFormFactory
-	 */
-	private $userAddFormFactory;
-
-	/**
-	 * @var \Flame\CMS\UserBundle\Forms\UserPasswordFormFactory $userPasswordFormFactory
-	 */
-	private $userPasswordFormFactory;
-
-	/**
-	 * @param \Flame\CMS\UserBundle\Forms\UserPasswordFormFactory $userPasswordFormFactory
-	 */
-	public function injectUserPasswordFormFactory(\Flame\CMS\UserBundle\Forms\UserPasswordFormFactory $userPasswordFormFactory)
+	public function injectUserManager(\Flame\CMS\UserBundle\Model\UserManager $userManager)
 	{
-		$this->userPasswordFormFactory = $userPasswordFormFactory;
+		$this->userManager = $userManager;
 	}
 
 	/**
-	 * @param \Flame\CMS\UserBundle\Forms\UserAddFormFactory $userAddFormFactory
+	 * @autowire
+	 * @var \Flame\CMS\UserBundle\Forms\IUserAddFormFactory
 	 */
-	public function injectUserAddFormFactory(\Flame\CMS\UserBundle\Forms\UserAddFormFactory $userAddFormFactory)
-	{
-		$this->userAddFormFactory = $userAddFormFactory;
-	}
+	protected $userAddFormFactory;
 
 	/**
-	 * @param \Flame\CMS\UserBundle\Forms\UserEditFormFactory $userEditFormFactory
+	 * @autowire
+	 * @var \Flame\CMS\UserBundle\Forms\IUserEditFormFactory
 	 */
-	public function injectUserEditFormFactory(\Flame\CMS\UserBundle\Forms\UserEditFormFactory $userEditFormFactory)
-	{
-		$this->userEditFormFactory = $userEditFormFactory;
-	}
+	protected $userEditFormFactory;
 
-    /**
-     * @param \Flame\CMS\UserBundle\Model\UserFacade $userFacade
-     */
-    public function injectUserFacade(\Flame\CMS\UserBundle\Model\UserFacade $userFacade)
-    {
-        $this->userFacade = $userFacade;
-    }
+	/**
+	 * @autowire
+	 * @var \Flame\CMS\UserBundle\Forms\IUserPasswordFormFactory
+	 */
+	protected $userPasswordFormFactory;
 
 	public function renderDefault()
 	{
@@ -74,7 +57,8 @@ class UserPresenter extends AdminPresenter
      */
     public function actionEdit($id = null)
 	{
-		if($id === null) $id = $this->getUser()->getId();
+		if($id === null)
+			$id = $this->getUser()->getId();
 
 		if(!$this->getUser()->isAllowed('Admin:User', 'editAnother')){
 			if(!$this->user = $this->userFacade->getOne($id)){
@@ -88,23 +72,48 @@ class UserPresenter extends AdminPresenter
 
 	}
 
+
+	/**
+	 * @param $id
+	 */
+	public function handleDelete($id)
+	{
+		if($this->getUser()->getId() == $id){
+			$this->flashMessage('You cannot delete yourself');
+		}elseif(!$this->getUser()->isAllowed('Admin:User', 'delete')){
+			$this->flashMessage('Access denied');
+		}else{
+			try {
+				$this->userManager->delete($id);
+			}catch (\Nette\InvalidArgumentException $ex){
+				$this->flashMessage($ex->getMessage(), 'error');
+			}
+		}
+
+		$this->redirect('this');
+	}
+
 	/**
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentUserEditForm()
 	{
-		$form = $this->userEditFormFactory->configure($this->user)->createForm();
+		$default = array();
+		if($this->user instanceof User)
+			$default = $this->user->toArray();
+
+		$form = $this->userEditFormFactory->create($default);
 		$form->onSuccess[] = $this->lazyLink('this');
 		return $form;
 	}
 
 
 	/**
-	 * @return Forms\Users\UserAddForm|\Nette\Application\UI\Form
+	 * @return \Flame\CMS\UserBundle\Forms\UserAddForm
 	 */
 	protected function createComponentUserAddForm()
 	{
-		$form = $this->userAddFormFactory->createForm();
+		$form = $this->userAddFormFactory->create();
 		$form->onSuccess[] = $this->lazyLink('default');
 		return $form;
 	}
@@ -114,34 +123,8 @@ class UserPresenter extends AdminPresenter
      */
     protected function createComponentUserPasswordForm()
 	{
-		$form = $this->userPasswordFormFactory->configure($this->getUser())->createForm();
-		$form->onSuccess[] = $this->lazyLink('Dashboard:');
+		$form = $this->userPasswordFormFactory->create();
+		$form->onSuccess[] = $this->lazyLink('this');
         return $form;
-	}
-
-    /**
-     * @param $id
-     */
-    public function handleDelete($id)
-	{
-		if($this->getUser()->getId() == $id){
-			$this->flashMessage('You cannot delete yourself');
-		}elseif(!$this->getUser()->isAllowed('Admin:User', 'delete')){
-			$this->flashMessage('Access denied');
-		}else{
-			$user = $this->userFacade->getOne((int) $id);
-
-			if(!$user){
-				$this->flashMessage('User with required ID does not exist');
-			}else{
-				$this->userFacade->delete($user);
-			}
-		}
-
-		if(!$this->isAjax()){
-			$this->redirect('this');
-		}else{
-			$this->invalidateControl('users');
-		}
 	}
 }
