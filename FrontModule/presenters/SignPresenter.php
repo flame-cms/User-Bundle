@@ -53,7 +53,7 @@ class SignPresenter extends FrontPresenter
 
 			$this->getUser()->login($values->email, $values->password);
 
-			if($this->backlink and $this->restoreRequestProvider)
+			if($this->backlink)
 				$this->restoreRequest($this->backlink);
 
 		} catch (\Nette\Security\AuthenticationException $e) {
