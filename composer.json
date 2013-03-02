@@ -1,0 +1,21 @@
+{
+	"name": "flame-cms/user-bundle",
+	"type": "nette-bundle",
+	"description": "User bundle",
+	"keywords": ["user bundle", "nette"],
+	"homepage": "https://github.com/flame-cms/User-Bundle",
+	"license": "BSD-3",
+	"authors": [
+		{
+			"name": "Jiří Šifalda",
+			"homepage": "http://jsifalda.name/"
+		}
+	],
+	"require": {
+		"nette/nette": "@dev",
+		"flame/bundle-installer": "@dev",
+		"flame/framework": ">=3.0.1",
+		"flame/bootstrapdatepicker-control": "@dev",
+		"kdyby/bootstrap-form-renderer": ">=2.0.1"
+	}
+}
