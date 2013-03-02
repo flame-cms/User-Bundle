@@ -64,10 +64,16 @@ class User extends \Flame\Doctrine\Entity
 
     public function __construct($email, $password, $role)
     {
-        $this->password = $password;
-        $this->role = $role;
-        $this->email = $email;
+        $this->password = (string) $password;
+        $this->role = (string) $role;
+        $this->email = (string) $email;
+
+	    $this->name = '';
+	    $this->about = '';
 	    $this->birthday = new DateTime;
+	    $this->web = '';
+	    $this->facebook = '';
+	    $this->twitter = '';
     }
 
     public function getPassword()
