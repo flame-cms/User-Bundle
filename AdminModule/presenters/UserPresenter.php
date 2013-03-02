@@ -18,16 +18,11 @@ class UserPresenter extends AdminPresenter
 	 */
 	protected $userFacade;
 
-	/** @var \Flame\CMS\UserBundle\Model\UserManager */
-	private $userManager;
-
 	/**
-	 * @param \Flame\CMS\UserBundle\Model\UserManager $userManager
+	 * @autowire
+	 * @var \Flame\CMS\UserBundle\Model\UserManager
 	 */
-	public function injectUserManager(\Flame\CMS\UserBundle\Model\UserManager $userManager)
-	{
-		$this->userManager = $userManager;
-	}
+	protected $userManager;
 
 	/**
 	 * @autowire
