@@ -10,6 +10,8 @@
 
 namespace Flame\CMS\UserBundle\Model;
 
+use DateTime;
+
 /**
  * @Entity
  */
@@ -65,6 +67,7 @@ class User extends \Flame\Doctrine\Entity
         $this->password = $password;
         $this->role = $role;
         $this->email = $email;
+	    $this->birthday = new DateTime;
     }
 
     public function getPassword()
