@@ -84,6 +84,7 @@ class UserPresenter extends AdminPresenter
 		}
 
 		$this->user = $this->userFacade->getOne($id);
+		$this->template->user = $this->user;
 
 	}
 

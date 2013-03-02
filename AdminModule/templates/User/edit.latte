@@ -1,5 +1,14 @@
 {#content}
 
-	<h3 n:block="title">Edit User</h3>
+<link href="{$basePath}/css/datepicker.css" rel="stylesheet" media="screen">
+<script src="{$basePath}/js/bootstrap-datepicker.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.bootstrapDatePicker').datepicker();
+    });
+</script>
+
+	<h3 n:block="title">Edit User "{$user}"</h3>
 	{control userEditForm}
 {/#}
