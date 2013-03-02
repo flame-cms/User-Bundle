@@ -8,7 +8,7 @@
  * @date    22.07.12
  */
 
-namespace Flame\CMS\Security;
+namespace Flame\CMS\UserBundle\Security;
 
 class Identity extends \Nette\Security\Identity
 {

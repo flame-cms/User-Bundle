@@ -8,8 +8,8 @@ parameters:
   entities: [%appDir%/UserBundle/Models]
 
 services:
-  Authorizator: Flame\CMS\Security\Authorizator
-  Authenticator: Flame\CMS\Security\Authenticator
+  Authorizator: Flame\CMS\UserBundle\Security\Authorizator
+  Authenticator: Flame\CMS\UserBundle\Security\Authenticator
 
   user: \Flame\CMS\UserBundle\Security\User
 

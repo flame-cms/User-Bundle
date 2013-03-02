@@ -19,14 +19,14 @@ class UserAddFormFactory extends \Nette\Object
 	private $userFacade;
 
 	/**
-	 * @var \Flame\CMS\Security\Authenticator $authenticator
+	 * @var \Flame\CMS\UserBundle\Security\Authenticator $authenticator
 	 */
 	private $authenticator;
 
 	/**
-	 * @param \Flame\CMS\Security\Authenticator $authenticator
+	 * @param \Flame\CMS\UserBundle\Security\Authenticator $authenticator
 	 */
-	public function injectAuthenticator(\Flame\CMS\Security\Authenticator $authenticator)
+	public function injectAuthenticator(\Flame\CMS\UserBundle\Security\Authenticator $authenticator)
 	{
 		$this->authenticator = $authenticator;
 	}
