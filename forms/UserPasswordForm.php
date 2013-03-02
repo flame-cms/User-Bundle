@@ -8,9 +8,9 @@
  * @date    14.10.12
  */
 
-namespace Flame\CMS\AdminModule\Forms\Users;
+namespace Flame\CMS\UserBundle\Forms;
 
-class UserPasswordForm extends \Flame\CMS\AppModule\Application\UI\Form
+class UserPasswordForm extends \Flame\CMS\UserBundle\Application\UI\Form
 {
 
 	public function configure()

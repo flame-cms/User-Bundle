@@ -1,23 +1,35 @@
 <?php
 /**
- * UserInfo.php
+ * User
  *
- * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
+ * @author  Jiří Šifalda
  * @package Flame
  *
- * @date    23.07.12
+ * @date    09.07.12
  */
 
-namespace Flame\CMS\Models\UsersInfo;
-
-use Flame\CMS\Models\Users\User,
-	DateTime;
+namespace Flame\CMS\UserBundle\Model;
 
 /**
- * @Entity(repositoryClass="UserInfoRepository")
+ * @Entity
  */
-class UserInfo extends \Flame\Doctrine\Entity
+class User extends \Flame\Doctrine\Entity
 {
+    /**
+     * @Column(type="string", length=128)
+     */
+    protected $password;
+
+    /**
+     * @Column(type="string", length=25)
+     */
+    protected $role;
+
+    /**
+     * @Column(type="string", length=100, unique=true)
+     */
+    protected $email;
+
 	/**
 	 * @Column(type="string", length=250)
 	 */
@@ -48,14 +60,44 @@ class UserInfo extends \Flame\Doctrine\Entity
 	 */
 	protected $twitter;
 
-	public function __construct($name)
+    public function __construct($email, $password, $role)
+    {
+        $this->password = $password;
+        $this->role = $role;
+        $this->email = $email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($pass)
+    {
+        $this->password = (string) $pass;
+        return $this;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = (string) $role;
+        return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+	public function setEmail($email)
 	{
-		$this->name = $name;
-		$this->about = '';
-		$this->birthday = '';
-		$this->web = '';
-		$this->facebook = '';
-		$this->twitter = '';
+		$this->email = (string) $email;
+		return $this;
 	}
 
 	public function getName()
@@ -121,5 +163,10 @@ class UserInfo extends \Flame\Doctrine\Entity
 	{
 		$this->twitter = (string) $twitter;
 		return $this;
+	}
+
+	public function __toString()
+	{
+		return (string) $this->email;
 	}
 }

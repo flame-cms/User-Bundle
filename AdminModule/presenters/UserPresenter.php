@@ -2,64 +2,64 @@
 
 namespace Flame\CMS\AdminModule;
 
-use Flame\CMS\Models\Users\User;
+use Flame\CMS\UserBundle\Model\User;
 
 class UserPresenter extends AdminPresenter
 {
 
     /**
-     * @var \Flame\CMS\Models\Users\User
+     * @var \Flame\CMS\UserBundle\Model\User
      */
     private $user;
 
     /**
-     * @var \Flame\CMS\Models\Users\UserFacade
+     * @var \Flame\CMS\UserBundle\Model\UserFacade
      */
     private $userFacade;
 
 	/**
-	 * @var \Flame\CMS\AdminModule\Forms\Users\UserEditFormFactory $userEditFormFactory
+	 * @var \Flame\CMS\UserBundle\Forms\UserEditFormFactory $userEditFormFactory
 	 */
 	private $userEditFormFactory;
 
 	/**
-	 * @var \Flame\CMS\AdminModule\Forms\Users\UserAddFormFactory $userAddFormFactory
+	 * @var \Flame\CMS\UserBundle\Forms\UserAddFormFactory $userAddFormFactory
 	 */
 	private $userAddFormFactory;
 
 	/**
-	 * @var \Flame\CMS\AdminModule\Forms\Users\UserPasswordFormFactory $userPasswordFormFactory
+	 * @var \Flame\CMS\UserBundle\Forms\UserPasswordFormFactory $userPasswordFormFactory
 	 */
 	private $userPasswordFormFactory;
 
 	/**
-	 * @param \Flame\CMS\AdminModule\Forms\Users\UserPasswordFormFactory $userPasswordFormFactory
+	 * @param \Flame\CMS\UserBundle\Forms\UserPasswordFormFactory $userPasswordFormFactory
 	 */
-	public function injectUserPasswordFormFactory(\Flame\CMS\AdminModule\Forms\Users\UserPasswordFormFactory $userPasswordFormFactory)
+	public function injectUserPasswordFormFactory(\Flame\CMS\UserBundle\Forms\UserPasswordFormFactory $userPasswordFormFactory)
 	{
 		$this->userPasswordFormFactory = $userPasswordFormFactory;
 	}
 
 	/**
-	 * @param \Flame\CMS\AdminModule\Forms\Users\UserAddFormFactory $userAddFormFactory
+	 * @param \Flame\CMS\UserBundle\Forms\UserAddFormFactory $userAddFormFactory
 	 */
-	public function injectUserAddFormFactory(\Flame\CMS\AdminModule\Forms\Users\UserAddFormFactory $userAddFormFactory)
+	public function injectUserAddFormFactory(\Flame\CMS\UserBundle\Forms\UserAddFormFactory $userAddFormFactory)
 	{
 		$this->userAddFormFactory = $userAddFormFactory;
 	}
 
 	/**
-	 * @param \Flame\CMS\AdminModule\Forms\Users\UserEditFormFactory $userEditFormFactory
+	 * @param \Flame\CMS\UserBundle\Forms\UserEditFormFactory $userEditFormFactory
 	 */
-	public function injectUserEditFormFactory(\Flame\CMS\AdminModule\Forms\Users\UserEditFormFactory $userEditFormFactory)
+	public function injectUserEditFormFactory(\Flame\CMS\UserBundle\Forms\UserEditFormFactory $userEditFormFactory)
 	{
 		$this->userEditFormFactory = $userEditFormFactory;
 	}
 
     /**
-     * @param \Flame\CMS\Models\Users\UserFacade $userFacade
+     * @param \Flame\CMS\UserBundle\Model\UserFacade $userFacade
      */
-    public function injectUserFacade(\Flame\CMS\Models\Users\UserFacade $userFacade)
+    public function injectUserFacade(\Flame\CMS\UserBundle\Model\UserFacade $userFacade)
     {
         $this->userFacade = $userFacade;
     }

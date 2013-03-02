@@ -8,9 +8,9 @@
  * @date    01.09.12
  */
 
-namespace Flame\CMS\FrontModule\Forms\Sign;
+namespace Flame\CMS\UserBundle\Forms\Sign;
 
-class InForm extends \Flame\CMS\AppModule\Application\UI\Form
+class InForm extends \Flame\CMS\UserBundle\Application\UI\Form
 {
 
 	public function configure()

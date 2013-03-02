@@ -8,13 +8,13 @@
  * @date    14.10.12
  */
 
-namespace Flame\CMS\AdminModule\Forms\Users;
+namespace Flame\CMS\UserBundle\Forms;
 
 class UserAddFormFactory extends \Nette\Object
 {
 
 	/**
-	 * @var \Flame\CMS\Models\Users\UserFacade $userFacade
+	 * @var \Flame\CMS\UserBundle\Model\UserFacade $userFacade
 	 */
 	private $userFacade;
 
@@ -32,9 +32,9 @@ class UserAddFormFactory extends \Nette\Object
 	}
 
 	/**
-	 * @param \Flame\CMS\Models\Users\UserFacade $userFacade
+	 * @param \Flame\CMS\UserBundle\Model\UserFacade $userFacade
 	 */
-	public function injectUserFacade(\Flame\CMS\Models\Users\UserFacade $userFacade)
+	public function injectUserFacade(\Flame\CMS\UserBundle\Model\UserFacade $userFacade)
 	{
 		$this->userFacade = $userFacade;
 	}
@@ -60,7 +60,7 @@ class UserAddFormFactory extends \Nette\Object
 		if($this->userFacade->getByEmail($values['email'])){
 			$form->presenter->flashMessage('Email ' . $values['email'] . ' exist.');
 		}else{
-			$user = new \Flame\CMS\Models\Users\User(
+			$user = new \Flame\CMS\UserBundle\Model\User(
 				$values['email'],
 				$this->authenticator->calculateHash($values['password']),
 				$values['role']

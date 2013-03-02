@@ -8,7 +8,7 @@
  * @date    14.10.12
  */
 
-namespace Flame\CMS\AdminModule\Forms\Users;
+namespace Flame\CMS\UserBundle\Forms;
 
 class UserPasswordFormFactory extends \Nette\Object
 {
@@ -24,7 +24,7 @@ class UserPasswordFormFactory extends \Nette\Object
 	private $user;
 
 	/**
-	 * @var \Flame\CMS\Models\Users\UserFacade $userFacade
+	 * @var \Flame\CMS\UserBundle\Model\UserFacade $userFacade
 	 */
 	private $userFacade;
 
@@ -42,9 +42,9 @@ class UserPasswordFormFactory extends \Nette\Object
 	}
 
 	/**
-	 * @param \Flame\CMS\Models\Users\UserFacade $userFacade
+	 * @param \Flame\CMS\UserBundle\Model\UserFacade $userFacade
 	 */
-	public function injectUserFacade(\Flame\CMS\Models\Users\UserFacade $userFacade)
+	public function injectUserFacade(\Flame\CMS\UserBundle\Model\UserFacade $userFacade)
 	{
 		$this->userFacade = $userFacade;
 	}

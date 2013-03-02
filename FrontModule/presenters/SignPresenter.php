@@ -15,7 +15,7 @@ class SignPresenter extends FrontPresenter
 
 	/**
 	 * @autowire
-	 * @var \Flame\CMS\FrontModule\Forms\Sign\InFormFactory
+	 * @var \Flame\CMS\UserBundle\Forms\Sign\InFormFactory
 	 */
 	protected $inFormFactory;
 
@@ -38,7 +38,7 @@ class SignPresenter extends FrontPresenter
 
 	/**
 	 * Sign in form component factory.
-	 * @return \Flame\CMS\FrontModule\Forms\Sign\InForm|\Nette\Application\UI\Form
+	 * @return \Flame\CMS\UserBundle\Forms\Sign\InForm|\Nette\Application\UI\Form
 	 */
 	protected function createComponentSignInForm()
 	{

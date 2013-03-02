@@ -12,14 +12,14 @@ class Authenticator extends \Flame\Security\Authenticator
 {
 
 	/**
-	 * @var \Flame\CMS\Models\Users\UserFacade
+	 * @var \Flame\CMS\UserBundle\Model\UserFacade
 	 */
 	private $userFacade;
 
 	/**
-	 * @param \Flame\CMS\Models\Users\UserFacade $usersFacade
+	 * @param \Flame\CMS\UserBundle\Model\UserFacade $usersFacade
 	 */
-	public function __construct(\Flame\CMS\Models\Users\UserFacade $usersFacade)
+	public function __construct(\Flame\CMS\UserBundle\Model\UserFacade $usersFacade)
 	{
 		$this->userFacade = $usersFacade;
 	}

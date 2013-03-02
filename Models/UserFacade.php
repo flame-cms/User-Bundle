@@ -8,7 +8,7 @@
  * @date    09.07.12
  */
 
-namespace Flame\CMS\Models\Users;
+namespace Flame\CMS\UserBundle\Model;
 
 class UserFacade extends \Flame\Doctrine\Model\Facade
 {
@@ -16,16 +16,7 @@ class UserFacade extends \Flame\Doctrine\Model\Facade
 	/**
 	 * @var string
 	 */
-	protected $repositoryName = '\Flame\CMS\Models\Users\User';
-
-	/**
-	 * @param $id
-	 * @return mixed
-	 */
-	public function getOne($id)
-    {
-        return $this->repository->findOneById($id);
-    }
+	protected $repositoryName = '\Flame\CMS\UserBundle\Model\User';
 
 	/**
 	 * @return array

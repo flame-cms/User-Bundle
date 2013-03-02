@@ -8,7 +8,7 @@
  * @date    01.09.12
  */
 
-namespace Flame\CMS\FrontModule\Forms\Sign;
+namespace Flame\CMS\UserBundle\Forms\Sign;
 
 use Nette\Security as NS;
 

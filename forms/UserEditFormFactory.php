@@ -8,7 +8,7 @@
  * @date    14.10.12
  */
 
-namespace Flame\CMS\AdminModule\Forms\Users;
+namespace Flame\CMS\UserBundle\Forms;
 
 class UserEditFormFactory extends \Nette\Object
 {
@@ -19,32 +19,32 @@ class UserEditFormFactory extends \Nette\Object
 	protected $form;
 
 	/**
-	 * @var \Flame\CMS\Models\Users\User
+	 * @var \Flame\CMS\UserBundle\Model\User
 	 */
 	private $user;
 
 	/**
-	 * @var \Flame\CMS\Models\Users\UserFacade $userFacade
+	 * @var \Flame\CMS\UserBundle\Model\UserFacade $userFacade
 	 */
 	private $userFacade;
 
 	/**
-	 * @var \Flame\CMS\Models\UsersInfo\UserInfoFacade $userInfoFacade
+	 * @var \Flame\CMS\UserBundle\ModelInfo\UserInfoFacade $userInfoFacade
 	 */
 	private $userInfoFacade;
 
 	/**
-	 * @param \Flame\CMS\Models\UsersInfo\UserInfoFacade $userInfoFacade
+	 * @param \Flame\CMS\UserBundle\ModelInfo\UserInfoFacade $userInfoFacade
 	 */
-	public function injectUserInfoFacade(\Flame\CMS\Models\UsersInfo\UserInfoFacade $userInfoFacade)
+	public function injectUserInfoFacade(\Flame\CMS\UserBundle\ModelInfo\UserInfoFacade $userInfoFacade)
 	{
 		$this->userInfoFacade = $userInfoFacade;
 	}
 
 	/**
-	 * @param \Flame\CMS\Models\Users\UserFacade $userFacade
+	 * @param \Flame\CMS\UserBundle\Model\UserFacade $userFacade
 	 */
-	public function injectUserFacade(\Flame\CMS\Models\Users\UserFacade $userFacade)
+	public function injectUserFacade(\Flame\CMS\UserBundle\Model\UserFacade $userFacade)
 	{
 		$this->userFacade = $userFacade;
 	}
@@ -87,7 +87,7 @@ class UserEditFormFactory extends \Nette\Object
 				->setTwitter($values['twitter']);
 			$this->userInfoFacade->save($info);
 		}else{
-			$info = new \Flame\CMS\Models\UsersInfo\UserInfo($values['name']);
+			$info = new \Flame\CMS\UserBundle\ModelInfo\UserInfo($values['name']);
 			$info->setAbout($values['about'])
 				->setBirthday($values['birthday'])
 				->setWeb($values['web'])

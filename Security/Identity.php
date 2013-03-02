@@ -14,14 +14,14 @@ class Identity extends \Nette\Security\Identity
 {
 
 	/**
-	 * @var \Flame\CMS\Models\Users\User
+	 * @var \Flame\CMS\UserBundle\Model\User
 	 */
 	private $user;
 
 	/**
-	 * @param \Flame\CMS\Models\Users\User $user
+	 * @param \Flame\CMS\UserBundle\Model\User $user
 	 */
-	public function __construct(\Flame\CMS\Models\Users\User $user)
+	public function __construct(\Flame\CMS\UserBundle\Model\User $user)
 	{
 		$this->user = $user;
 		$this->user->setPassword(null);
@@ -32,7 +32,7 @@ class Identity extends \Nette\Security\Identity
 	}
 
 	/**
-	 * @return \Flame\CMS\Models\Users\User
+	 * @return \Flame\CMS\UserBundle\Model\User
 	 */
 	public function getUserModel()
 	{
