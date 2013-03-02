@@ -13,24 +13,16 @@ namespace Flame\CMS\UserBundle\Security;
 class Identity extends \Nette\Security\Identity
 {
 
-	/** @var array */
-	private $data;
-
 	/**
 	 * @param \Flame\CMS\UserBundle\Model\User $user
 	 */
 	public function __construct(\Flame\CMS\UserBundle\Model\User $user)
 	{
-		$this->data = $user->toArray();
+		$data = $user->toArray();
 
-		unset($this->data['password']);
+		unset($data['password']);
 
-		parent::__construct($user->getId(),$user->getRole(), null);
-	}
-
-	public function getData()
-	{
-		return $this->data;
+		parent::__construct($user->getId(),$user->getRole(), $data);
 	}
 
 	/**
@@ -38,7 +30,7 @@ class Identity extends \Nette\Security\Identity
 	 */
 	public function __toString()
 	{
-		return (string) (isset($this->data['email'])) ? $this->data['email'] : '';
+		return (string) (isset($this->email)) ? $this->email : '';
 	}
 
 }
