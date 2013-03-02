@@ -11,8 +11,13 @@ services:
   Authorizator: Flame\CMS\Security\Authorizator
   Authenticator: Flame\CMS\Security\Authenticator
 
+  user: \Flame\CMS\UserBundle\Security\User
+
   UserFacade: Flame\CMS\UserBundle\Model\UserFacade
-  UserEditFormFactory: Flame\CMS\UserBundle\Forms\UserEditFormFactory
-  UserAddFormFactory: Flame\CMS\UserBundle\Forms\UserAddFormFactory
-  UserPasswordFormFactory: Flame\CMS\UserBundle\Forms\UserPasswordFormFactory
+#  UserEditFormFactory: Flame\CMS\UserBundle\Forms\UserEditFormFactory
+#  UserAddFormFactory: Flame\CMS\UserBundle\Forms\UserAddFormFactory
+#  UserPasswordFormFactory: Flame\CMS\UserBundle\Forms\UserPasswordFormFactory
+
+factories:
+  implement: \Flame\CMS\UserBundle\Forms\Sign\IInFormFactory
 

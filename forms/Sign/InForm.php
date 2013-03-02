@@ -13,7 +13,13 @@ namespace Flame\CMS\UserBundle\Forms\Sign;
 class InForm extends \Flame\CMS\UserBundle\Application\UI\Form
 {
 
-	public function configure()
+	public function __construct()
+	{
+		parent::__construct();
+		$this->configure();
+	}
+
+	private function configure()
 	{
 		$this->addText('email', 'Email:')
 			->setRequired('Please provide a email.');

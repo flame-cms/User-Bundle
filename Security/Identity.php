@@ -13,42 +13,24 @@ namespace Flame\CMS\Security;
 class Identity extends \Nette\Security\Identity
 {
 
-	/**
-	 * @var \Flame\CMS\UserBundle\Model\User
-	 */
-	private $user;
+	/** @var array */
+	private $data;
 
 	/**
 	 * @param \Flame\CMS\UserBundle\Model\User $user
 	 */
 	public function __construct(\Flame\CMS\UserBundle\Model\User $user)
 	{
-		$this->user = $user;
-		$this->user->setPassword(null);
+		$this->data = $user->toArray();
 
-		parent::__construct($this->user->getId(),$this->user->getRole(), $this->getUserData());
+		unset($this->data['password']);
 
-		$this->user->setInfoNull();
+		parent::__construct($user->getId(),$user->getRole(), null);
 	}
 
-	/**
-	 * @return \Flame\CMS\UserBundle\Model\User
-	 */
-	public function getUserModel()
+	public function getData()
 	{
-		return $this->user;
-	}
-
-	/**
-	 * @return array
-	 */
-	private function getUserData()
-	{
-		$userInfo = $this->user->getInfo() ? $this->user->getInfo()->toArray(): null;
-		if(isset($userInfo['id'])) unset($userInfo['id']);
-		$data = array('email' => $this->user->getEmail());
-		if(is_array($userInfo)) $data = array_merge($data, $userInfo);
-		return $data;
+		return $this->data;
 	}
 
 	/**

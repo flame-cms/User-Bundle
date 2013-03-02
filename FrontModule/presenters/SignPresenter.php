@@ -15,7 +15,7 @@ class SignPresenter extends FrontPresenter
 
 	/**
 	 * @autowire
-	 * @var \Flame\CMS\UserBundle\Forms\Sign\InFormFactory
+	 * @var \Flame\CMS\UserBundle\Forms\Sign\IInFormFactory
 	 */
 	protected $inFormFactory;
 
@@ -37,14 +37,37 @@ class SignPresenter extends FrontPresenter
 	}
 
 	/**
-	 * Sign in form component factory.
-	 * @return \Flame\CMS\UserBundle\Forms\Sign\InForm|\Nette\Application\UI\Form
+	 * @param \Flame\CMS\UserBundle\Forms\Sign\InForm $form
+	 */
+	public function formSubmitted(\Flame\CMS\UserBundle\Forms\Sign\InForm $form)
+	{
+		$values = $form->getValues();
+
+		try {
+
+			if ($values->remember) {
+				$this->getUser()->setExpiration('+ 14 days', false);
+			} else {
+				$this->getUser()->setExpiration('+ 2 hours', true);
+			}
+
+			$this->getUser()->login($values->email, $values->password);
+
+			if($this->backlink and $this->restoreRequestProvider)
+				$this->restoreRequest($this->backlink);
+
+		} catch (\Nette\Security\AuthenticationException $e) {
+			$form->addError($e->getMessage());
+		}
+	}
+
+	/**
+	 * @return mixed
 	 */
 	protected function createComponentSignInForm()
 	{
-		$this->inFormFactory->setRestoreRequestProvider($this->restoreRequest);
-		$this->inFormFactory->setBacklink($this->backlink);
-		$form = $this->inFormFactory->createForm();
+		$form = $this->inFormFactory->create();
+		$form->onSuccess[] = $this->formSubmitted;
 		$form->onSuccess[] = $this->lazyLink(':Admin:DashBoard:');
 		return $form;
 	}
