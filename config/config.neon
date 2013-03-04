@@ -7,6 +7,17 @@
 parameters:
   entities: [%appDir%/UserBundle/Models]
 
+webloader:
+  css:
+    default:
+      files:
+        - %appDir%/UserBundle/www/datepicker.css
+
+  js:
+    default:
+      files:
+        - %appDir%/UserBundle/www/datepicker.js
+
 services:
   Authorizator: Flame\CMS\UserBundle\Security\Authorizator
   Authenticator: Flame\CMS\UserBundle\Security\Authenticator
